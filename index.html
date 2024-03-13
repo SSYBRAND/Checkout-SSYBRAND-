@@ -1,0 +1,132 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+      <center><img src="https://see.fontimg.com/api/renderfont4/51g4Z/eyJyIjoiZnMiLCJoIjo4OCwidyI6MjAwMCwiZnMiOjQ0LCJmZ2MiOiIjRTQwRTBFIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/Tk9URVMgV0FMTEFI/love-casual-regular.png" width="95%"></center>
+        <h1>Product Checkout&nbsp;&nbsp;<img src="https://media1.giphy.com/media/PijzuUzUhm7hcWinGn/200w.gif?cid=6c09b952lu4lxq15f5ctspo0fdnc39e8wecxswzrfvkhdac7&ep=v1_gifs_search&rid=200w.gif&ct=g"width="40%"></h1>
+        <div class="product">
+            <h2>Product id:-<font color=red>&nbsp;&nbsp;<i><u>SSYBRAND01</u></i></h2></font>
+            <p><font color=blue>विवरण</font>: यह आइटम 4-5 दिनों में डिलीवर किया जाएगा। हम आपको आपके द्वारा चेकआउट के दौरान प्रदान किए गए Gmail और मोबाइल नंबर पर संपर्क करेंगे।</p>
+            
+            <p>Delevery Charge:&nbsp;&#8377;40</p>
+            <button id="checkoutBtn">Order Now&nbsp;/&nbsp; आर्डर बुक करें
+            </button>
+            <div class="loader" id="loader"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            var customerEmail = prompt("Please enter your Gmail ID for delivery tracking:");
+            if (customerEmail !== null && customerEmail !== "") {
+                var address = prompt("Please enter your address:");
+                var pincode = prompt("Please enter your pin code:");
+                var landmark = prompt("Please enter your landmark:");
+                var mobileNumber = prompt("Please enter your mobile number:");
+                var cityRoad = prompt("Please enter your city/road:");
+                
+                if (address !== null && pincode !== null && landmark !== null && mobileNumber !== null && cityRoad !== null) {
+                    document.getElementById('loader').style.display = 'inline-block';
+                    var form = new FormData();
+                    form.append('customerEmail', customerEmail);
+                    form.append('address', address);
+                    form.append('pincode', pincode);
+                    form.append('landmark', landmark);
+                    form.append('mobileNumber', mobileNumber);
+                    form.append('cityRoad', cityRoad);
+                    
+                    fetch('https://formspree.io/f/xzbnvojg', {
+                        method: 'POST',
+                        body: form
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            document.getElementById('loader').style.display = 'none';
+                            alert('Checkout successful! We will contact you at ' + customerEmail + ' for delivery tracking.');
+                        } else {
+                            throw new Error('Failed to submit form');
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById('loader').style.display = 'none';
+                        alert('Thank You for shopping with SSY BRAND ❣️ We will contact You on Gmail for further delevery tracking and information.');
+                    });
+                } else {
+                    alert("Please fill in all the required fields.");
+                }
+            } else {
+                alert("Please enter a valid Gmail ID.");
+            }
+        });
+    </script>
+    <center><script type="text/javascript">
+	atOptions = {
+		'key' : '041c8d0545884a92a39276d2707fdc15',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="//www.topcreativeformat.com/041c8d0545884a92a39276d2707fdc15/invoke.js"></scr' + 'ipt>');
+</script>
+</body>
+</html>
